@@ -1,0 +1,13 @@
+Hello {{ firstname }},
+
+Here is your activation link for {{ sitename }}:
+
+{{ path }}
+
+You can login via this link.
+
+Thank You
+Happy shopping!
+
+Regards,
+Team {{ sitename }}

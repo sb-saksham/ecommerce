@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+    <h1>
+        Welcome to sell homepage!
+    </h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ image_form.as_p }}
+        <input type="submit" class="btn btn-success" value="Add">
+    </form>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-success" value="Sell!">
+        {% if message %}
+            <h1>form successfully submitted</h1>
+        {% endif %}
+    </form>
+{% endblock %}

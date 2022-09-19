@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% bootstrap_form form show_label='sr-only' %}
+            <input type="submit" class="btn btn-success" value="Sign Up!">
+            <br>
+            {% if not redirected_from_renting %}
+            <h6><a class="btn btn-secondary" href="{% url 'accounts:guest_create' %}">Continue as guest</a></h6>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if user.is_authenticated %}
+    {% if renting_order %}
+        {% include 'renting/snippets/renting_order_conditions.html' with renting_order=renting_order cart=cart %}
+
+    {% elif renting_orders and cart %}
+        {% for renting_order in renting_orders %}
+            {% include 'renting/snippets/renting_order_conditions.html' with renting_order=renting_order cart=cart %}
+        {% endfor %}
+    {% else %}
+        <div class="row" align="center">
+            <div class="col-12 mx-auto">
+                <h1>You have no current renting Orders!</h1>
+                <h2><a href="{% url 'products:all_products' %}" class="btn btn-primary">See all products</a></h2>
+            </div>
+        </div>
+    {% endif %}
+{% else %}
+        <div class="row" align="center">
+            <div class="col-12 mx-auto">
+                <h1>Please Sign In to see your renting orders</h1>
+                <a class="btn btn-success" href="{% url 'accounts:login' %}">Login</a>
+                <h2>Or have a look at our products</h2>
+                <h2><a href="{% url 'products:all_products' %}" class="btn btn-primary">See all products</a></h2>
+            </div>
+        </div>
+{% endif %}
+{% endblock %}
+
+
+

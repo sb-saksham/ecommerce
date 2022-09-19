@@ -1,0 +1,88 @@
+{% load static %}
+<div class="row row-cols-4 d-xl-block d-lg-block d-md-block d-sm-none">
+{% for product in product_list %}
+    <div class="col">
+        <div class="card mb-3" style="max-width: 340px;">
+        <div class="row no-gutters">
+        <div class="col-12">
+            <a href="{{ product.get_absolute_url }}">
+                <img src="{% if product.picture %}{{ product.picture.url }}{% else %}{% static '/images/default.jpg' %}{% endif %}" class="card-img" alt="{{ product.title }}">
+            </a>
+        </div>
+        <div class="col-8">
+          <div class="card-body">
+            <a href="{{ product.get_absolute_url }}">
+              <h5 class="card-title">{{ product.title }}</h5>
+            </a>
+            <p class="card-text">
+                {{ product.description }}
+            </p>
+            <p class="card-text">Price: <strong class="text-muted">₹{{ product.price }}</strong></p>
+             {% if product.per_day_renting_price %}
+                <p class="card-text">Renting Price: <strong class="text-muted">₹{{ product.per_day_renting_price }}</strong></p>
+             {% else %}
+                <p class="card-text"><strong class="text-muted"></strong></p>
+             {% endif %}
+
+          </div>
+        </div>
+          <div class="col-12">
+              <div class="card-footer text-center">
+                {% include 'cart/cart_update.html' with product=product cart=cart %}
+<!--                {% if product.per_day_renting_price %}-->
+<!--                  <form action="{% url 'renting:rent_initiate' %}" method="GET">-->
+<!--                    <input type="hidden" name="id" value="{{ product.id }}">-->
+<!--                    <input type="submit" class="btn btn-primary" value="Take on rent">-->
+<!--                  </form>-->
+<!--                {% endif %}-->
+            </div>
+          </div>
+      </div>
+    </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="row d-xl-none d-lg-none d-md-none d-sm-block" >
+    {% for product in product_list %}
+    <div class="col-4">
+        <a href="{{ product.get_absolute_url }}">
+            <img src="{% if product.picture %}{{ product.picture.url }}{% else %}{% static '/images/default.jpg' %}{% endif %}" class="card-img" alt="{{ product.title }}">
+        </a>
+    </div>
+    <div class="col-4">
+        <div class="row">
+            <div class="col-12">
+                <a href="{{ product.get_absolute_url }}">
+                    <h5 class="card-title">{{ product.title }}</h5>
+                </a>
+            </div>
+            <div class="col-12">
+                <p class="card-text">
+                    {{ product.description }}
+                </p>
+            </div>
+            <div class="col-12">
+                <p class="card-text">Price: <strong class="text-muted">₹{{ product.price }}</strong></p>
+            </div>
+            <div class="col-12">
+                {% if product.per_day_renting_price %}
+                <p class="card-text">Renting Price: <strong class="text-muted">₹{{ product.per_day_renting_price }}</strong></p>
+                {% else %}
+                <p class="card-text"><strong class="text-muted"></strong></p>
+                {% endif %}
+            </div>
+            <div class="col-6">
+            {% include 'cart/cart_update.html' with product=product cart=cart %}
+            </div>
+            <div class="col-6">
+<!--                {% if product.per_day_renting_price %}-->
+<!--                    <form action="{% url 'renting:rent_initiate' %}" method="GET">-->
+<!--                        <input type="hidden" name="id" value="{{ product.id }}">-->
+<!--                        <input type="submit" class="btn btn-primary" value="Take on rent">-->
+<!--                    </form>-->
+<!--                {% endif %}-->
+            </div>
+          </div>
+    </div>
+    {% endfor %}
+</div>

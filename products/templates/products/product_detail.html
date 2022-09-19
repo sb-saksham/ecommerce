@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="d-none row text-center d-lg-block d-md-block ">
+    <div class="card" style="width: 540px;">
+        <img src="{% if product_detail.picture.url %}{{ product_detail.picture.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}" class="card-img-top" alt="{{ product_detail.title }}">
+        <div class="card-body align-self-center col-sm-6">
+            <h5 class="card-title">{{ product_detail.title }}</h5>
+            <p class="card-text">{{ product_detail.description }}<br>₹<strong>{{ product_detail.price }}</strong></p>
+            {% include 'cart/cart_update.html' with product=product_detail %}
+<!--            <form method="GET" action="{% url 'renting:rent_initiate' %}">-->
+<!--                <input type="hidden" name="id" value="{{ product_detail.id }}">-->
+<!--                <input type="submit" class="btn btn-primary" value="Take On Rent">-->
+<!--            </form>-->
+        </div>
+    </div>
+</div>
+
+<div class="d-lg-none d-md-none row text-center d-sm-block">
+    <div class="card col-sm-12">
+        <img src="{% if product_detail.picture.url %}{{ product_detail.picture.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}" class="card-img-top" alt="{{ product_detail.title }}">
+    </div>
+        <h5 class="card-title col-12">{{ product_detail.title }}</h5>
+        <p class="card-text col-12">{{ product_detail.description }}
+            <br>
+            ₹<strong>{{ product_detail.price }}</strong>
+        </p>
+        <br><div class="col-6">
+            {% include 'cart/cart_update.html' with product=product_detail %}
+        </div>
+<!--        <div class="col-6">-->
+<!--            <form method="GET" action="{% url 'renting:rent_initiate' %}">-->
+<!--                <input type="hidden" name="id" value="{{ product_detail.id }}">-->
+<!--                <input type="submit" class="btn btn-primary" value="Take On Rent">-->
+<!--            </form>-->
+<!--        </div>-->
+    </div>
+{% endblock %}

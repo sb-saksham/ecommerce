@@ -1,0 +1,29 @@
+sizes_choices = (
+    ('large', 'L'),
+    ('medium', 'M'),
+    ('small', 'S'),
+    ('extra_large', 'XL'),
+)
+product add models size
+    sizes               = models.CharField(max_length=5, choices=sizes_choices)
+    size_modeled_price  = models.DecimalField(default_value=0.00, max_digits=100, max_places=2)
+
+Add to cart
+    Form should have the radio input for size
+    and then set the size_modeled_price for product
+    if price is same for all sizes:
+        the product price is product's size_modeled_price
+
+*********************************x****************************************x********************************
+
+->SELLING OF USED CLOTHES
+    new app usedClothes
+        models cloth:
+            type(i.e., t-shirt,jeans,etc.....)
+            cloth_type(optional)(~ kosa,silk,etc....)null=True
+            images
+            size
+            description
+            sellto =  models.ChardField(choices(('to_us','style'em.com'),('other','sell_to_others')))
+            price(null=True)
+

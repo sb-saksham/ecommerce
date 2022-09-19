@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<h1>Login</h1>
+{% include 'accounts/snippets/login.html' with form=form %}
+{% csrf_token %}
+{% endblock %}

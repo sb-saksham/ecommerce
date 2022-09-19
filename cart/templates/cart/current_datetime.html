@@ -1,0 +1,177 @@
+<!--<html>-->
+<!--  <head onload="submitPayuForm()">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >-->
+<!--  <script id="bolt" src="https://sboxcheckout-static.citruspay.com/bolt/run/bolt.min.js">-->
+<!--      var hash = "{{ hashh }}";-->
+<!--    function submitPayuForm() {-->
+<!--      if(hash =='') {-->
+<!--        return;-->
+<!--      }-->
+<!--      var payuForm = document.forms.payuForm;-->
+<!--      payuForm.submit();-->
+<!--    }-->
+<!--  </script>-->
+<!--  </head>-->
+<!--  <body>-->
+<!--    <h2>Redirecting to merchant site.........</h2>-->
+<!--    <h1>Do not press back or refresh button</h1>-->
+<!--    <br/>-->
+<!--    {% if error %}-->
+<!--	-->
+<!--      <span style="color:red">Please fill all mandatory fields.</span>-->
+<!--      <br/>-->
+<!--      <br/>-->
+<!--    {% endif %}-->
+<!--    <form action="{{ action }}" method="post" name="payuForm">-->
+<!--        <input type="hidden" name="key" value="{{ MERCHANT_KEY }}" />-->
+<!--        <input type="hidden" name="txnid" value="{{ txnid }}" />-->
+<!--        <input type="hidden" name="amount" value="{{ posted.amount }}" />-->
+<!--        <input type="hidden" name="productinfo" value="{{ posted.productinfo }}">-->
+<!--        <input type="hidden" name="firstname" value="{{ posted.firstname }}"/>-->
+<!--        <input type="hidden" name="email" id="email" value="{{ posted.email }}" />-->
+<!--        <input type="hidden" name="phone" value="{{ posted.phone }}" />-->
+<!--        <input type="hidden" name="surl" value="{{ posted.surl }}" size="64" />-->
+<!--        <input type="hidden" name="furl" value="{{ posted.furl }}" size="64" />-->
+<!--        <input type="hidden" name="hash" value="{{ hashh }}"/>-->
+<!--        <input type="hidden" name="service_provider" value="payu_paisa" size="64" />-->
+<!--    &lt;!&ndash;Over here&ndash;&gt;-->
+
+<!--        -->
+<!--        -->
+<!--    &lt;!&ndash;Optional Parameters&ndash;&gt;-->
+<!--        <input type="hidden" name="lastname" id="lastname" value="{{ posted.lastname|default:'' }}" />-->
+<!--        <input type="hidden" name="curl" value="" />-->
+<!--        <input type="hidden" name="address1" value="{{ posted.address1|default:'' }}" />-->
+<!--        <input type="hidden" name="address2" value="{{ posted.address2|default:'' }}" />-->
+<!--        <input type="hidden" name="city" value="{{ posted.city|default:'' }}" />-->
+<!--        <input type="hidden" name="state" value="{{ posted.state|default:'' }}" />-->
+<!--        <input type="hidden" name="country" value="{{ posted.country|default:'' }}" />-->
+<!--        <input type="hidden" name="zipcode" value="{{ posted.zipcode|default:'' }}" />-->
+<!--        <input type="hidden" name="udf1" value="{{ posted.udf1|default:'' }}" />-->
+<!--        <input type="hidden" name="udf2" value="{{ posted.udf2|default:'' }}" />         -->
+<!--        <input type="hidden" name="udf3" value="{{ posted.udf3|default:'' }}" />-->
+<!--        <input type="hidden" name="udf4" value="{{ posted.udf4|default:'' }}" />-->
+<!--        <input type="hidden" name="udf5" value="{{ posted.udf5|default:'' }}" />-->
+<!--        <input type="hidden" name="pg" value="{{ posted.PG|default:'' }}" />-->
+
+<!--        <input type="submit" value="Submit for Now">-->
+<!--    </form>-->
+<!--  </body>-->
+<!--</html>-->
+
+<html>
+  <head onload="submitPayuForm()">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" >
+  <script id="bolt" src="https://sboxcheckout-static.citruspay.com/bolt/run/bolt.min.js">
+    var hash = "{{ hashh }}";
+    function submitPayuForm() {
+      if(hash =='') {
+        return;
+      }
+      var payuForm = document.getElementById('payuForm')
+      payuForm.submit();
+    }
+  </script>
+  </head>
+  <body>
+    {% if error %}
+
+      <span style="color:red">Please fill all mandatory fields.</span>
+      <br/>
+      <br/>
+    {% endif %}
+
+    <form action="{{ action }}" method="post" id="payuForm">
+      <input type="hidden" name="key" value="{{ MERCHANT_KEY }}" />
+      <input type="hidden" name="hash_string" value="{{ hash_string }}" />
+      <input type="hidden" name="hash" value="{{ hashh }}"/>
+      <input type="hidden" name="posted" value="{{ posted }}"/>
+      <input type="hidden" name="txnid" value="{{ txnid }}" />
+      <table>
+        <tr>
+          <td><b>Mandatory Parameters</b></td>
+        </tr>
+        <tr>
+         <td>Amount: </td>
+          <td><input name="amount" value="{{ posted.amount|default:'' }}" /></td>
+          <td>First Name: </td>
+          <td><input name="firstname" id="firstname" value="{{ posted.firstname|default:'' }}" /></td>
+        </tr>
+        <tr>
+          <td>Email: </td>
+          <td><input name="email" id="email" value="{{ posted.email|default:'' }}" /></td>
+          <td>Phone: </td>
+          <td><input name="phone" value="{{ posted.phone|default:'' }}" /></td>
+        </tr>
+        <tr>
+          <td>Product Info: </td>
+          <td colspan="3"><textarea name="productinfo">{{ posted.productinfo|default:'' }}</textarea></td>
+        </tr>
+        <tr>
+          <td>Success URI: </td>
+          <td colspan="3"><input name="surl" value="{{ posted.surl }}" size="64" /></td>
+        </tr>
+        <tr>
+          <td>Failure URI: </td>
+          <td colspan="3"><input name="furl" value="{{ posted.furl }}" size="64" /></td>
+        </tr>
+
+        <tr>
+          <td colspan="3"><input type="hidden" name="service_provider" value="payu_paisa" size="64" /></td>
+        </tr>
+             <tr>
+          <td><b>Optional Parameters</b></td>
+        </tr>
+        <tr>
+          <td>Last Name: </td>
+          <td><input name="lastname" id="lastname" value="{{ posted.lastname }}" /></td>
+          <td>Cancel URI: </td>
+          <td><input name="curl" value="" /></td>
+        </tr>
+        <tr>
+          <td>Address1: </td>
+          <td><input name="address1" value="{{ posted.address1 }}" /></td>
+          <td>Address2: </td>
+          <td><input name="address2" value="{{ posted.address2 }}" /></td>
+        </tr>
+        <tr>
+          <td>City: </td>
+          <td><input name="city" value="{{ posted.city }}" /></td>
+          <td>State: </td>
+          <td><input name="state" value="{{ posted.state }}" /></td>
+        </tr>
+        <tr>
+          <td>Country: </td>
+          <td><input name="country" value="{{ posted.country }}" /></td>
+          <td>Zipcode: </td>
+          <td><input name="zipcode" value="{{ posted.zipcode }}" /></td>
+        </tr>
+        <tr>
+          <td>UDF1: </td>
+          <td><input name="udf1" value="{{ posted.udf1 }}" /></td>
+          <td>UDF2: </td>
+          <td><input name="udf2" value="{{ posted.udf2 }}" /></td>
+        </tr>
+        <tr>
+          <td>UDF3: </td>
+          <td><input name="udf3" value="{{ posted.udf3 }}" /></td>
+          <td>UDF4: </td>
+          <td><input name="udf4" value="{{ posted.udf4 }}" /></td>
+        </tr>
+        <tr>
+          <td>UDF5: </td>
+          <td><input name="udf5" value="{{ posted.udf5 }}" /></td>
+          <td>PG: </td>
+          <td><input name="pg" value="{{ posted.PG }}" /></td>
+        </tr>
+
+     <td colspan="4"><input type="submit" value="Submit" /></td>
+
+
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
+
+

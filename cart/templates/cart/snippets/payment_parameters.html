@@ -1,0 +1,62 @@
+<form method="post" action="{{ action }}">
+        <input type="hidden" id="key"         value="{{ MERCHANT_KEY }}" />
+        <input type="hidden" id="hash_string" value="{{ hash_string }}">
+        <input type="hidden" id="hash"        value="{{ hashh }}">
+        <input type="hidden" id="txnid"       value="{{ txnid }}">
+        <input type="hidden" id="amount"      value="{{  }}">
+        <input type="hidden" id="firstname"   value="">
+        <input type="hidden" id="email"       value="">
+        <input type="hidden" id="phone"       value="">
+        <input type="hidden" id="productinfo"      value="">
+        <input type="hidden" id="surl"             value="" size="64"  />
+        <input type="hidden" id="furl"             value="" size="64" />
+        <input type="hidden" id="service_provider" value="payu_paisa" />
+        <button id="pay_now" class="btn btn-success">Pay Now</button>
+    </form>
+<script id="bolt" src="https://sboxcheckout-static.citruspay.com/bolt/run/bolt.min.js" bolt-color="<color-code>" bolt-logo="<image path>">
+    var key = $('key').val()
+    var hash_string = $('hash_string').val()
+    var hash = $('hash').val()
+    var txnid = $('txnid').val()
+    var amount = $('amount').val()
+    var firstname = $('firstname').val()
+    var phone = $('phone').val()
+    var productinfo = $('productinfo').val()
+    var surl = $('surl').val()
+    var furl = $('furl').val()
+    var service_provider = 'payu_paisa'
+
+    var RequestData = {
+          'key': key,
+          'txnid':txnid,
+          'hash':hash,
+          'amount':amount,
+          'firstname':firstname,
+          'email':email,
+          'phone':phone,
+          'productinfo':productinfo,
+          'surl':surl,
+          'furl':furl,
+          'service_provider':service_provider,
+    }
+
+
+    var Handler = {
+
+        responseHandler: function(BOLT){
+
+            // your payment response Code goes here, BOLT is the response object
+            $.alert('<strong>The payment is SUCCESSFULL</strong>')
+
+        },
+        catchException: function(BOLT){
+
+            // the code you use to handle the integration errors goes here
+            $.alert('The payment FAILED')
+
+          }
+    }
+    $('#pay_now').onclick(function(){
+        bolt.launch(RequestData,Handler)
+    })
+</script>

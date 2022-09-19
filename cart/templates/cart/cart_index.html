@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container wrapper">
+    <h1>Cart</h1><br>
+    {% if cart.renting_order %}
+            <div class="row">
+                <div class="col-2">1.</div>
+                <div class="col-8">{{ cart.renting_order.product.title }} </div>
+                <div class="col-2">{{ cart.renting_order.product.description }}</div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <form method="post" action="{% url 'renting:rent_status' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="renting_order_id" value="{{ cart.renting_order.order_id }}">
+                        <input class="btn btn-success" type="submit" value="Edit">
+                    </form>
+                </div>
+                <div class="col-12"><hr></div>
+            </div>
+    {% endif %}
+    {% if cart.products.exists %}
+            <div class="row">
+                <div class="col-2 bold"><strong>S.No.</strong></div>
+                <div class="col-2 bold"><strong>Title</strong></div>
+                <div class="col-6 bold"><strong>Description</strong></div>
+
+                <div class="col-2 bold"><strong>Price</strong></div>
+                <div class="col-12 bold"><hr></div>
+            </div>
+
+         {% for product in cart.products.all %}
+            <div class="row">
+                <div class="col-2">{{ forloop.counter }}.</div>
+                <div class="col-2">{{ product.title }}</div>
+                <div class="col-6">{{ product.description }} </div>
+
+                <div class="col-2">₹{{ product.price }}</div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    {% include 'cart/remove.html' with product_id=product.id %}
+                </div>
+                <div class="col-12"><hr></div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if not cart.renting_order and not cart.products.exists %}
+
+        <div class="col-12" align="center">
+            <h4>Cart is empty!</h4>
+        </div>
+    {% else %}
+        <div class="row" align="right">
+            <div class="col-2" id="cart-subtotal">
+                <strong>Subtotal: </strong>
+            </div>
+            <div class="col-10">
+                ₹{{ cart.subtotal }}
+            </div>
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col-2" id="cart-total"><strong>Total: </strong>
+            </div>
+            <div class="col-10">
+                ₹{{ cart.total }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <hr>
+            </div>
+            <div class="col text-lg-right text-center">
+                <a href="{% url 'cart:checkout' %}" class="btn btn-success" style="align=right;">Checkout</a>
+            </div>
+        </div>
+    {% endif %}
+
+<div class="cart-item-remove-form" style="display:none">
+    {% include 'cart/remove.html' %}
+</div>
+
+</div>
+{% endblock %}

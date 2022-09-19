@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1>
+        {% if failed == 'true' %}
+        Sorry!
+        <br>Transaction failed due to some reason
+        {% else %}
+            Transaction Successful<br>Kya baat ha boi......!
+        {% endif %}
+    </h1>
+{% endblock %}

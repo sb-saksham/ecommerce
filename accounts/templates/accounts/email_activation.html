@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+    <div class="row">
+        <div class="col-12 text-center">
+            {% if key %}
+            <h1 class="my-5 py-5">Activation Error! Please try again.</h1>
+            {% else %}
+            <h1 class="my-5 py-5">Reactivate your Email below</h1>
+            {% endif %}
+            <form method="post" action="">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                <input class="btn btn-secondary" value="Resend Activation" type="submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}

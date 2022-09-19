@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row mx-auto">
+    <div class="float-lg-right">
+            <form class="collapse navbar-collapse form-inline search-form" action="{% url 'search:query' %}" method="GET" style="float:left !important">
+                <input class="search-input form-control mr-auto mr-sm-2" type="search" name='q' placeholder="{% if request.GET.q %}Search{% else %}{{ request.GET.q }}{% endif %}" aria-label="Search" value="{{ request.GET.q }}">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+            </form>
+        </div>
+    <div class="col-12">
+    {% if request.GET.q %}
+        <h4>Results for {{ request.GET.q }}</h4>
+        {% include 'products/snippets/list_of_products.html' with product_list=products %}
+
+    {% elif not products %}
+        <h4>We cannot find the items related to {{ request.GET.q }}<br>
+            Try out with another Keywords<br>
+            Or check out our <a href="{% url 'products:all_products' %}">Featured Products</a>
+        </h4>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

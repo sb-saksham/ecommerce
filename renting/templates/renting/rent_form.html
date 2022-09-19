@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+{% load bootstrap4 %}
+<div class="row" align="center">
+    <div class="col-12 mx-auto">
+        <h1>{{ product_detail.title }}</h1>
+        <img src="/media/{{ product_detail.picture }}" alt="{{ product_detail.title }}">
+        <p>{{ product_detail.description }}</p>
+        <strong>{{ product_detail.price }}</strong>
+    </div>
+</div>
+{% if user.is_authenticated %}
+    <form method="post" action="{% url 'renting:rent_status' %}">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ product_detail.id }}">
+        {% bootstrap_form form %}
+        <input type="submit" class="btn btn-success" value="Take on rent">
+    </form>
+{% else %}
+ <h1>Please Login/ Signup for completing the process </h1>
+    <a class="btn btn-success">Signup</a>
+    <a></a>
+{% endif %}
+{% endblock %}
