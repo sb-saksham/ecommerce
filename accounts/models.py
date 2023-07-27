@@ -1,3 +1,4 @@
+import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from datetime import timedelta
@@ -12,7 +13,7 @@ from utils import unique_key
 from django.template.loader import get_template
 
 
-SENDGRID_API_KEY = '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'
+SENDGRID_API_KEY = os.environ.get('API_KEY_FROM_ENVIRON')
 
 
 class UserManager(BaseUserManager):
